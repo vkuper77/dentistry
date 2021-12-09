@@ -1,35 +1,31 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {COLORS} from '../../../setings/theme';
 
-const USER = {
-  firstName: 'Анжелика',
-  lastName: 'Матиева',
-  diagnosis: 'пульпит, удаление зуба',
-  time: '12:30',
-};
-
 export default function Card() {
+  const users = useSelector(state => state.clients.clients)[0];
   const navigation = useNavigation();
   // () => navigation.navigate('Edit')
+
   return (
     <View style={styles.wrapper}>
       <TouchableOpacity onPress={() => navigation.navigate('Personal')}>
         <View style={styles.container}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={styles.avatar}>
-              <Text style={{color: 'white'}}>{USER.firstName[0]}</Text>
+              <Text style={{color: 'white'}}>{users.firstName[0]}</Text>
             </View>
             <View>
               <Text
                 style={
                   styles.name
-                }>{`${USER.firstName} ${USER.lastName}`}</Text>
-              <Text style={styles.diagnosis}>{USER.diagnosis}</Text>
+                }>{`${users.firstName} ${users.lastName}`}</Text>
+              <Text style={styles.diagnosis}>{users.diagnosis}</Text>
             </View>
           </View>
-          <Text style={styles.time}>{USER.time}</Text>
+          <Text style={styles.time}>{users.time}</Text>
         </View>
       </TouchableOpacity>
     </View>
