@@ -1,11 +1,9 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {COLORS} from '../../../setings/theme';
 
-export default function Card() {
-  const users = useSelector(state => state.clients.clients)[0];
+export default function Card({user, idx}) {
   const navigation = useNavigation();
   // () => navigation.navigate('Edit')
 
@@ -15,17 +13,17 @@ export default function Card() {
         <View style={styles.container}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={styles.avatar}>
-              <Text style={{color: 'white'}}>{users.firstName[0]}</Text>
+              <Text style={{color: 'white'}}>{user.firstName[0]}</Text>
             </View>
             <View>
               <Text
                 style={
                   styles.name
-                }>{`${users.firstName} ${users.lastName}`}</Text>
-              <Text style={styles.diagnosis}>{users.diagnosis}</Text>
+                }>{`${user.firstName} ${user.lastName}`}</Text>
+              <Text style={styles.diagnosis}>{user.diagnosis}</Text>
             </View>
           </View>
-          <Text style={styles.time}>{users.time}</Text>
+          <Text style={styles.time(idx)}>{user.time}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -68,18 +66,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
-    backgroundColor: '#2182ff',
+    backgroundColor: COLORS.BLUE,
   },
   btnText: {
     fontSize: 16,
     color: 'white',
   },
-  time: {
+  time: i => ({
     paddingVertical: 6,
     paddingHorizontal: 12,
-    backgroundColor: COLORS.BLUE,
+    backgroundColor: !i ? COLORS.BLUE : 'lightblue',
     borderRadius: 15,
-    color: 'white',
-    fontWeight: '500',
-  },
+    color: !i ? 'white' : COLORS.BLUE,
+    fontWeight: '700',
+  }),
 });

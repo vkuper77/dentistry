@@ -4,12 +4,18 @@ import AddButton from '../components/UI/Home/AddButton';
 import Card from '../components/UI/Home/Card';
 import Header from '../components/UI/Home/Header';
 import {COLORS} from '../setings/theme';
+import {useSelector} from 'react-redux';
 
 export default function Home() {
+  const users = useSelector(state => state.clients.clients);
   return (
     <View style={styles.wrapper}>
       <Header />
-      <Card />
+      {users.map((item, idx) => (
+        <View key={item.id}>
+          <Card user={item} idx={idx} />
+        </View>
+      ))}
       <AddButton />
     </View>
   );
